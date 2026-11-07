@@ -1,0 +1,88 @@
+/* デモ版だけの見た目（本体の style.css に足す） */
+.demo-banner {
+  background: var(--card);
+  border-bottom: 0.5px solid var(--separator);
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--secondary);
+}
+.demo-banner-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+}
+.demo-banner strong { color: var(--label); }
+.demo-banner .spacer { flex: 1; }
+.demo-banner button {
+  border: 0; background: none; color: var(--blue); font-size: 13px; padding: 2px 0; cursor: pointer;
+}
+
+/* 通知を届ける */
+.demo-notify {
+  max-width: 1180px; width: calc(100% - 40px); margin: 16px auto 0;
+  background: var(--card); border-radius: var(--radius);
+  padding: 16px 20px 18px;
+}
+@media (max-width: 959px) { .demo-notify { max-width: 720px; } }
+.demo-notify-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.demo-notify h2 { margin: 0; font-size: 19px; }
+.demo-notify .toggle { border: 0; background: none; color: var(--blue); font-size: 15px; cursor: pointer; padding: 0; }
+.demo-notify .lead { margin: 6px 0 0; color: var(--secondary); font-size: 14px; line-height: 1.5; }
+.demo-notify-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; margin-top: 14px; }
+@media (max-width: 760px) { .demo-notify-body { grid-template-columns: 1fr; } }
+.demo-notify h3 { margin: 0 0 8px; font-size: 14px; color: var(--secondary); font-weight: 600; }
+.demo-examples { display: flex; flex-direction: column; gap: 6px; }
+.demo-example {
+  text-align: left; border: 0; border-radius: 10px; background: var(--fill);
+  padding: 8px 12px; font-size: 14px; line-height: 1.4; cursor: pointer;
+}
+.demo-example small { display: block; color: var(--secondary); font-size: 12px; margin-bottom: 1px; }
+.demo-example:hover { filter: brightness(0.97); }
+.demo-note { margin: 10px 0 0; color: var(--secondary); font-size: 12px; line-height: 1.5; }
+
+.demo-form { display: flex; flex-direction: column; gap: 8px; }
+.demo-form .row2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; }
+.demo-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--secondary); }
+.demo-form select, .demo-form input, .demo-form textarea {
+  font: inherit; font-size: 15px; color: var(--label);
+  background: var(--bg); border: 0.5px solid var(--separator); border-radius: 8px; padding: 8px 10px;
+}
+.demo-form textarea { resize: vertical; min-height: 64px; line-height: 1.45; }
+.demo-form .send {
+  border: 0; border-radius: 10px; background: var(--blue); color: #fff; font-size: 16px; font-weight: 600;
+  padding: 11px; cursor: pointer;
+}
+.demo-form .send:disabled { opacity: .5; cursor: default; }
+.demo-result { margin-top: 10px; font-size: 14px; line-height: 1.5; }
+.demo-result .line { display: flex; gap: 8px; align-items: baseline; padding: 4px 0; }
+.demo-result .muted { color: var(--secondary); }
+.demo-result .error { color: var(--red); }
+.demo-result .hint { color: var(--secondary); font-size: 12px; margin-top: 2px; }
+
+/* PC に出る通知（Windows の通知の見た目に寄せたもの） */
+.demo-toast {
+  position: fixed; top: 16px; right: 16px; z-index: 100; width: min(360px, calc(100vw - 32px));
+  background: #2b2b2b; color: #fff; border-radius: 8px; padding: 12px 14px 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .35); font-size: 14px; line-height: 1.45;
+  transform: translateX(120%); transition: transform .35s ease;
+}
+.demo-toast.show { transform: none; }
+.demo-toast .app { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, .7); font-size: 12px; margin-bottom: 6px; }
+.demo-toast .app i { width: 14px; height: 14px; border-radius: 4px; background: #5865f2; display: inline-block; }
+.demo-toast .title { font-weight: 600; }
+.demo-toast .body { color: rgba(255, 255, 255, .88); white-space: pre-wrap; word-break: break-word; }
+
+/* 状態表示の代わりの注意書き */
+.statusbar { display: none; }
+.demo-footer {
+  max-width: 720px; margin: 0 auto; padding: 14px 20px 28px;
+  color: var(--secondary); font-size: 12px; line-height: 1.6; text-align: center;
+}
+
+/* 録画 */
+.demo-video { border: 0; padding: 0; border-radius: 12px; background: #000; max-width: min(960px, 94vw); }
+.demo-video::backdrop { background: rgba(0, 0, 0, .6); }
+.demo-video video { display: block; width: 100%; max-height: 80vh; }
+.demo-video .close {
+  position: absolute; top: 8px; right: 8px; border: 0; border-radius: 50%; width: 30px; height: 30px;
+  background: rgba(0, 0, 0, .55); color: #fff; font-size: 18px; cursor: pointer;
+}
