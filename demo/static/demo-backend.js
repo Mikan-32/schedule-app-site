@@ -575,9 +575,13 @@
   async function extract(msg, candidates, context) {
     if (!CONFIG.workerUrl) throw httpError(503, "デモ版の設定（読み取りの中継先）がまだありません");
     let res;
+    // 中継先は混んでいるとき別のモデルで読み直すので、最長で 50 秒ほどかかる。それ以上は待たない
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 60000);
     try {
       res = await realFetch(`${CONFIG.workerUrl.replace(/\/$/, "")}/extract`, {
         method: "POST",
+        signal: ctrl.signal,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text: msg.text, author: msg.author, channel: msg.channel, sentAt: msg.sentAt,
@@ -587,8 +591,11 @@
         }),
       });
     } catch (_) {
+      clearTimeout(timer);
+      if (ctrl.signal.aborted) throw httpError(504, "読み取りが混み合っています。少し待ってからもう一度試してください");
       throw httpError(503, "読み取りの中継先につながりませんでした。時間をおいて試してください");
     }
+    clearTimeout(timer);
     let data = {};
     try { data = await res.json(); } catch (_) { /* ignore */ }
     if (!res.ok) throw httpError(res.status, data.error || "読み取りに失敗しました");
